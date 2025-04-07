@@ -1,2 +1,2 @@
 # deglebe.com
-my site
+my site sources and static generator for blog posts
