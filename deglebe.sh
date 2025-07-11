@@ -147,7 +147,7 @@ for md_file in "$CONTENT_DIR"/*.md; do
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
-    <title>$SITE_TITLE - $title</title>
+    <title>$SITE_TITLE | $title</title>
     <link rel="stylesheet" href="../style.css" />
   </head>
   <body>
@@ -180,7 +180,7 @@ done
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
-    <title>deglebe - posts</title>
+    <title>deglebe | posts</title>
     <link rel="stylesheet" href="style.css" />
   </head>
   <body>
