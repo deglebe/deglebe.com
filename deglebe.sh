@@ -125,19 +125,42 @@ process_markdown() {
     rm -f "$temp_file" "$footnote_raw"
 }
 
+date_to_sortable() {
+    local date_str="$1"
+    if echo "$date_str" | grep -q '^\*[0-9][0-9]/[0-9][0-9]/[0-9][0-9][0-9][0-9]\*$'; then
+        clean_date=$(echo "$date_str" | sed 's/\*//g')
+        month=$(echo "$clean_date" | cut -d'/' -f1)
+        day=$(echo "$clean_date" | cut -d'/' -f2)
+        year=$(echo "$clean_date" | cut -d'/' -f3)
+        echo "$year/$month/$day"
+    else
+        echo "9999/99/99"
+    fi
+}
+
 [ ! -d "$CONTENT_DIR" ] && {
     echo "content directory $CONTENT_DIR does not exist"
     exit 1
 }
 
 echo "building post directory"
-post_list="" post_count=0
+
+temp_posts="/tmp/posts_$$"
+post_count=0
 
 for md_file in "$CONTENT_DIR"/*.md; do
     [ ! -f "$md_file" ] && continue
     filename=$(basename "$md_file" .md)
     title=$(sed -n 's/^# //p' "$md_file" | head -n 1)
     [ -z "$title" ] && title="$filename"
+
+    date_line=$(sed -n '3p' "$md_file")
+    display_date=""
+    sortable_date=$(date_to_sortable "$date_line")
+
+    if [ "$sortable_date" != "9999/99/99" ]; then
+        display_date=$(echo "$date_line" | sed 's/\*//g')
+    fi
 
     echo "processing $md_file -> $OUTPUT_DIR/$filename.html"
 
@@ -169,12 +192,27 @@ EOF
 </html>"
     } > "$OUTPUT_DIR/$filename.html"
 
-    post_list="$post_list<li><a href=\"$OUTPUT_DIR/$filename.html\">$title</a></li>\n"
+    echo "$sortable_date|$filename|$title|$display_date" >> "$temp_posts"
     post_count=$((post_count + 1))
 done
 
 [ $post_count -gt 0 ] && {
     echo "updating posts.html with $post_count posts"
+
+    sorted_posts=$(sort -t'|' -k1,1 "$temp_posts" | tac)
+
+    post_list=""
+    echo "$sorted_posts" | while IFS='|' read -r sortable_date filename title display_date; do
+        if [ -n "$display_date" ]; then
+            post_list="$post_list<li><a href=\"$OUTPUT_DIR/$filename.html\">$title</a> <em>$display_date</em></li>\n"
+        else
+            post_list="$post_list<li><a href=\"$OUTPUT_DIR/$filename.html\">$title</a></li>\n"
+        fi
+        echo "$post_list" > "/tmp/post_list_$$"
+    done
+
+    post_list=$(cat "/tmp/post_list_$$" 2> /dev/null || echo "")
+
     cat > posts.html << EOF
 <!doctype html>
 <html lang="en">
@@ -201,6 +239,9 @@ $(printf "$post_list")      </ul>
   </body>
 </html>
 EOF
+
+    rm -f "$temp_posts" "/tmp/post_list_$$"
+
 } || echo "no markdown files found in $CONTENT_DIR"
 
 echo "build complete!"
