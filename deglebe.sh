@@ -181,6 +181,7 @@ for md_file in "$CONTENT_DIR"/*.md; do
         <a href="../now.html">now</a>
         <a class="active" href="../posts.html">posts</a>
         <a href="../about.html">about</a>
+	<a href="../reads.html">reads</a>
       </nav>
     </header>
     <main>
@@ -227,8 +228,9 @@ done
       <nav>
         <a href="index.html">home</a>
         <a href="now.html">now</a>
-        <a class="active" href="#">posts</a>
+        <a class="active" href="">posts</a>
         <a href="about.html">about</a>
+	<a href="reads.html">reads</a>
       </nav>
     </header>
     <main>
