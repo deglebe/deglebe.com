@@ -4,20 +4,24 @@
     <meta charset="UTF-8" />
     <title>deglebe | about</title>
     <link rel="stylesheet" href="style.css" />
+    <script src="theme.js"></script>
   </head>
   <body>
     <header>
       <h1>deglebe</h1>
+      <div class="theme-switcher">
+        <a href="#" id="theme-dark">dark</a>
+        <a href="#" id="theme-light">light</a>
+      </div>
       <nav>
         <a href="index.html">home</a>
-        <a href="now.html">now</a>
-        <a href="posts.html">posts</a>
+        <a href="play.html">play</a>
+        <a href="misc.html">misc</a>
         <a class="active" href="">about</a>
-        <a href="reads.html">reads</a>
       </nav>
     </header>
     <main>
-      <h3>about me</h3>
+      <h3>about</h3>
       <p>
         hello! i'm thomas (deglebe) bruce. i am a 20 year old computer
         scientist/engineer/software developer (formal training is in software
@@ -31,8 +35,8 @@
         machine learning applications in data science.
       </p>
       <p>
-        my non-cs computer interests lie in occasional gaming (vsrg, factorio,
-        minecraft, geoguessr), reading blogs, and listening to music.
+        my non-cs computer interests lie in occasional gaming, collecting pdfs,
+        reading blogs, listening to music, and making charts for various things
       </p>
       <p>
         off the computer, i am an avid endurance runner and hiker (nordic skiing
@@ -53,43 +57,14 @@
       </p>
       <p>i am on <a href="https://github.com/deglebe">github</a>.</p>
 
-      <h3>opinionated</h3>
-      <p>
-        there is nothing wrong with being opinionated, and a good portion of
-        one's thought life is (or at least should be) spent determining where
-        one's opinions line up with reality. here is a fairly broad summation of
-        the more socially conscious opinions i hold.
-      </p>
-      <p>
-        <em
-          >bigotry, discrimination, mis(ogyny/andry), racism, homophobia,
-          transphobia, xenophobia, sexism, classism, and religious persecution
-          are harmful!</em
-        ><br /><br />a healthy society does not deny humanity to anyone, and a
-        healthy heart values everyone equally. disrespecting a worldview that
-        denies universal humanity and respect is not oppressive.
-      </p>
-      <p>
-        <em
-          >humans are not disconnected for their environment, so to care for the
-          environment is to care for humanity!</em
-        ><br /><br />as scatman john said, "if part of your solution isn't
-        ending the pollution then i don't want to hear your stories told."
-      </p>
-      <p>
-        <em>borders do more to divide people than unify a nation!</em
-        ><br /><br />how many times over the millenia have the lines we draw on
-        maps changed? stop assigning the worth of people based on how far they
-        live away from you and whether there's a border crossing to get to them.
-      </p>
-
       <h3>about this site</h3>
       <p>
         all portions of this site were written by hand using posix tools and
         without the use of ai. the static site generator for the posts is
         written entirely using sh, sed, and awk. this site does not contain any
-        javascript. all text is lowercase due to my personal preference toward
-        monospace and carolingian miniscule.
+        javascript necessary for rendering the contents. all text is lowercase
+        due to my personal preference toward monospace and carolingian
+        miniscule.
       </p>
     </main>
     <footer></footer>
